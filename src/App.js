@@ -9,29 +9,81 @@ const btnValues = [
   [7, 8, 9, "X"],
   [4, 5, 6, "-"],
   [1, 2, 3, "+"],
-  [0,".","="],
+  [0, ".", "="],
 ]
 
-function App() {
+const App = () => {
+  let [calc, setCalc] = useState({
+    sign: "",
+    num: 0,
+    res: 0,
+  })
+
+  const numClickHandler = (e) => {
+    e.preventDefault()
+    console.log("numclickhandler")
+  }
+
+  const resetClickHandler = (e) => {
+    e.preventDefault()
+    console.log("resetClickHandler")
+  }
+
+  const invertClickHandler = (e) => {
+    e.preventDefault()
+    console.log("invertClickHandler")
+  }
+
+  const percentClickHandler = (e) => {
+    e.preventDefault()
+    console.log("percentClickHandler")
+  }
+
+  const equalsClickHandler = (e) => {
+    e.preventDefault()
+    console.log("equalsClickHandler")
+  }
+
+  const signClickHandler = (e) => {
+    e.preventDefault()
+    console.log("signClickHandler")
+  }
+
+  const decimalClickHandler = (e) => {
+    e.preventDefault()
+    console.log("decimalClickHandler")
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <Container>
-          <Screen value="0" />
+          <Screen value={calc.num ? calc.num : calc.res} />
           <ButtonContainer>
-            {
-              btnValues.flat().map((btn, i) => {
-                return (
-                  <Button
-                    key={i}
-                    className={btn === "=" ? "equals" : ""}
-                    value={btn}
-                    onClick={() => {
-                    console.log(`${btn} clicked`)
-                  }}/>
-                )
-              })
-            }
+            {btnValues.flat().map((btn, i) => {
+              return (
+                <Button
+                  key={i}
+                  className={btn === "=" ? "equals" : ""}
+                  value={btn}
+                  onClick={
+                    btn === "C"
+                      ? resetClickHandler
+                      : btn === "+-"
+                      ? invertClickHandler
+                      : btn === "%"
+                      ? percentClickHandler
+                      : btn === "="
+                      ? equalsClickHandler
+                      : btn === "/" || btn === "X" || btn === "+" || btn === "-"
+                      ? signClickHandler
+                      : btn === "."
+                      ? decimalClickHandler
+                      : numClickHandler
+                  }
+                />
+              )
+            })}
           </ButtonContainer>
         </Container>
       </header>
